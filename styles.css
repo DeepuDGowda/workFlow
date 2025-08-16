@@ -92,6 +92,7 @@ body {
   margin: 0 4px;
 }
 
+/* Map area */
 .map-wrap {
   flex: 1;
   background: rgba(255, 255, 255, 0.02);
@@ -99,6 +100,7 @@ body {
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   position: relative;
+  /* default desktop: no scrollbars (we pan) */
   overflow: hidden;
   min-height: 420px;
 }
@@ -110,6 +112,11 @@ body {
 }
 .map-wrap.panning #map {
   cursor: grabbing;
+}
+
+/* When we’re in mobile scroll mode (<=768px), show normal cursor */
+.map-wrap.scroll-mode #map {
+  cursor: default;
 }
 
 /* Help line */
@@ -139,7 +146,7 @@ body {
   background: transparent;
   border-color: #2b3b70;
 }
-.btn-fit{
+.btn-fit {
   display: none;
 }
 
@@ -149,14 +156,12 @@ body {
   flex-direction: column;
   gap: 10px;
   font-weight: 14px;
-  /* font-weight: bold; */
 }
 .detail-row {
   display: flex;
   gap: 10px;
   align-items: baseline;
   font-weight: 14px;
-  /* font-weight: bold; */
 }
 .detail-row-display {
   display: none;
@@ -183,7 +188,6 @@ body {
   border-radius: 12px;
   padding: 10px 12px;
   color: var(--text);
-  /* min-height: 80px; */
   width: 100%;
 }
 
@@ -272,7 +276,7 @@ body {
   stroke-dasharray: 3 3;
 }
 
-/* Responsive */
+/* Desktop stacking to single column on narrower screens */
 @media (max-width: 960px) {
   .app {
     grid-template-columns: 1fr;
@@ -285,45 +289,28 @@ body {
     min-height: 360px;
   }
 }
-@media (max-width: 600px) {
-  .app-title {
-    font-size: clamp(14px, 2.2vw, 20px);
-  }
-  .map-actions {
-    flex-wrap: wrap;
-    gap: 4px;
-  }
-  .map-actions .sep {
-    display: none;
-  }
-  .detail-label {
-    width: auto;
-  }
-  .detail-value {
-    font-size: 14px;
-  }
-}
 
-
-/* responsive */
-
-.map-wrap {
-  flex: 1;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  position: relative;
-  /* remove overflow hidden */
-  min-height: 420px;
-}
-
-/* Scrollbars only when width >768px */
-@media (min-width: 769px) {
+/* SMALL SCREENS: enable both-direction scroll and make the SVG bigger than the viewport */
+@media (max-width: 768px) {
   .map-wrap {
-    overflow-x: auto; /* allow both x and y scrollbars if content overflows */
-    overflow-y: auto;
+    overflow: auto; /* show scrollbars */
+    -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+  }
+  /* Make the SVG larger than the viewport so it can scroll */
+  #map {
+    min-width: 1400px;
+    min-height: 900px;
+    cursor: auto; /* normal cursor on mobile */
   }
 }
 
-/* Keep your existing responsive rules below */
+/* Even smaller phones can use a slightly smaller canvas */
+@media (max-width: 420px) {
+  #map {
+    min-width: 1200px;
+    min-height: 800px;
+  }
+}
+
+/* Optional: if you wanted scrollbars on LARGE screens instead, flip to min-width:769px */
+/* @media (min-width: 769px) { .map-wrap { overflow: auto; } } */

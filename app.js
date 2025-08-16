@@ -2,7 +2,8 @@
    - Per-node click toggles that node's branch (collapse/expand)
    - Global Expand/Collapse button next to − / +
    - Loads data/latest.json (or ?data=URL)
-   - Zoom/pan/fit preserved
+   - Zoom/pan/fit preserved on desktop
+   - On small screens (≤768px), native scrolling is enabled and drag-panning is disabled
 */
 
 // ======= State =======
@@ -32,6 +33,17 @@ const nodeTypeEl = document.getElementById("nodeType");
 const nodeChildrenEl = document.getElementById("nodeChildren");
 const nodeStateEl = document.getElementById("nodeState");
 const nodeContentEl = document.getElementById("nodeContent");
+
+// ======= Interaction mode (desktop pan vs. mobile scroll) =======
+let allowPan = true; // desktop default
+
+function updateInteractionMode() {
+  const small = window.matchMedia("(max-width: 768px)").matches;
+  allowPan = !small; // disable pan when small -> we want native scroll
+  mapWrap.classList.toggle("scroll-mode", small);
+}
+updateInteractionMode();
+window.addEventListener("resize", updateInteractionMode);
 
 // ======= SVG helper =======
 function s_el(name, attrs = {}) {
@@ -139,7 +151,8 @@ function layoutDescendants(parent, DX, DY) {
 // ======= Zoom / Pan =======
 function applyTransform() {
   const { k, tx, ty } = state.zoom;
-  viewport.setAttribute("transform", `translate(${tx},${ty}) scale(${k})`);
+  if (viewport)
+    viewport.setAttribute("transform", `translate(${tx},${ty}) scale(${k})`);
 }
 function clamp(v, min, max) {
   return Math.min(max, Math.max(min, v));
@@ -164,12 +177,14 @@ function resetZoom() {
   applyTransform();
 }
 
-// Drag panning (left button on empty background)
+// Drag panning (desktop only; disabled on small screens so scroll works)
 let isPanning = false,
   panStart = { x: 0, y: 0 },
   panStartTx = 0,
   panStartTy = 0;
+
 svg.addEventListener("mousedown", (e) => {
+  if (!allowPan) return; // disable pan in scroll mode
   if (e.button !== 0) return;
   if (e.target !== svg) return; // only background
   isPanning = true;
@@ -193,7 +208,7 @@ window.addEventListener("mouseup", () => {
   mapWrap.classList.remove("panning");
 });
 
-// Wheel zoom at cursor
+// Wheel zoom at cursor (desktop)
 svg.addEventListener(
   "wheel",
   (e) => {
@@ -211,7 +226,6 @@ function collapseAll() {
   for (const n of Object.values(state.nodes)) {
     if (n.children.length) n.collapsed = true;
   }
-  // keep root & hub open for orientation
   const root = state.nodes[state.rootId];
   if (root) root.collapsed = false;
   if (state.hubId && state.nodes[state.hubId])
@@ -414,7 +428,7 @@ globalToggleBtn.addEventListener("click", () => {
   updateGlobalToggleLabel();
 });
 
-// Wheel zoom at cursor
+// Wheel zoom at cursor (desktop)
 svg.addEventListener(
   "wheel",
   (e) => {

@@ -17,19 +17,37 @@
           <h1 class="app-title">Docusaurus Workflow Map</h1>
           <div class="map-actions">
             <!-- Zoom controls (left) -->
-            <button id="zoomOutBtn" class="btn btn--ghost" title="Zoom out">−</button>
-            <button id="zoomInBtn" class="btn btn--ghost" title="Zoom in">+</button>
+            <button id="zoomOutBtn" class="btn btn--ghost" title="Zoom out">
+              −
+            </button>
+            <button id="zoomInBtn" class="btn btn--ghost" title="Zoom in">
+              +
+            </button>
 
             <!-- Global Expand/Collapse next to − / + -->
-            <button id="globalToggleBtn" class="btn btn--ghost" title="Collapse or expand all">
+            <button
+              id="globalToggleBtn"
+              class="btn btn--ghost"
+              title="Collapse or expand all"
+            >
               Collapse All
             </button>
 
-            <button id="zoomResetBtn" class="btn btn--ghost" title="Reset zoom">100%</button>
+            <button id="zoomResetBtn" class="btn btn--ghost" title="Reset zoom">
+              100%
+            </button>
             <span class="sep"></span>
-            <button id="fitBtn" class="btn btn--ghost btn-fit" title="Recenter layout">Fit</button>
+            <button
+              id="fitBtn"
+              class="btn btn--ghost btn-fit"
+              title="Recenter layout"
+            >
+              Fit
+            </button>
             <span class="sep"></span>
-            <button id="reloadBtn" class="btn btn--ghost" title="Reload data">Reload</button>
+            <button id="reloadBtn" class="btn btn--ghost" title="Reload data">
+              Reload
+            </button>
           </div>
         </div>
 
@@ -39,9 +57,11 @@
         </div>
 
         <p class="help-line">
-          Click a node to <strong>collapse/expand that branch</strong> and view details.<br />
-          Use mouse wheel or the (− / + / 100%) buttons to zoom. Hold left mouse on the background to
-          drag/pan. Data source: <code>data/latest.json</code>
+          Click a node to <strong>collapse/expand that branch</strong> and view
+          details.<br />
+          Use mouse wheel or the (− / + / 100%) buttons to zoom. Hold left mouse
+          on the background to drag/pan. Data source:
+          <code>data/latest.json</code>
         </p>
       </section>
 
@@ -79,8 +99,14 @@
           <summary>About this viewer</summary>
           <ul>
             <li>This is a read-only viewer. Editing is disabled.</li>
-            <li>To publish updates: export JSON from the local editor and replace <code>data/latest.json</code>.</li>
-            <li>You can optionally supply a different data file with <code>?data=path.json</code>.</li>
+            <li>
+              To publish updates: export JSON from the local editor and replace
+              <code>data/latest.json</code>.
+            </li>
+            <li>
+              You can optionally supply a different data file with
+              <code>?data=path.json</code>.
+            </li>
           </ul>
         </details>
       </section>

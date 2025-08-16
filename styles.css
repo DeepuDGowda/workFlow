@@ -303,3 +303,26 @@ body {
     font-size: 14px;
   }
 }
+
+
+/* responsive */
+
+.map-wrap {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  position: relative;
+  /* remove overflow hidden */
+  min-height: 420px;
+}
+
+/* Scrollbars only when width >768px */
+@media (min-width: 769px) {
+  .map-wrap {
+    overflow: auto; /* allow both x and y scrollbars if content overflows */
+  }
+}
+
+/* Keep your existing responsive rules below */

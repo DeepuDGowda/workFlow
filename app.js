@@ -1,14 +1,11 @@
-/* Read-only viewer:
-   - Per-node click toggles that node's branch (collapse/expand)
-   - Global Expand/Collapse button next to − / +
-   - Loads data/latest.json (or ?data=URL)
-   - Zoom/pan/fit preserved on desktop
-   - On small screens (≤768px), native scrolling is enabled and drag-panning is disabled
+/* Read-only viewer with:
+   - Sticky header on the left pane
+   - On mobile (≤768px): the LEFT PANE scrolls (both directions); drag-pan is disabled
+   - On desktop: drag-pan + wheel zoom
 */
 
-// ======= State =======
 const state = {
-  nodes: {}, // id -> node
+  nodes: {},
   rootId: null,
   hubId: null,
   selectedId: null,
@@ -17,7 +14,6 @@ const state = {
 
 let viewport = null;
 
-// ======= DOM =======
 const mapWrap = document.getElementById("mapWrap");
 const svg = document.getElementById("map");
 const zoomInBtn = document.getElementById("zoomInBtn");
@@ -34,25 +30,23 @@ const nodeChildrenEl = document.getElementById("nodeChildren");
 const nodeStateEl = document.getElementById("nodeState");
 const nodeContentEl = document.getElementById("nodeContent");
 
-// ======= Interaction mode (desktop pan vs. mobile scroll) =======
-let allowPan = true; // desktop default
-
+/* Desktop pan vs mobile scroll */
+let allowPan = true;
 function updateInteractionMode() {
   const small = window.matchMedia("(max-width: 768px)").matches;
-  allowPan = !small; // disable pan when small -> we want native scroll
-  mapWrap.classList.toggle("scroll-mode", small);
+  allowPan = !small; // disable drag-pan on small screens
 }
 updateInteractionMode();
 window.addEventListener("resize", updateInteractionMode);
 
-// ======= SVG helper =======
+/* SVG helper */
 function s_el(name, attrs = {}) {
   const el = document.createElementNS("http://www.w3.org/2000/svg", name);
   for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
   return el;
 }
 
-// ======= Data helpers =======
+/* Data helpers */
 function getVisibleChildren(n) {
   return n.collapsed
     ? []
@@ -69,7 +63,7 @@ function getVisibleNodes() {
   return vis;
 }
 
-// ======= Layout (non-overlapping deep trees) =======
+/* Layout */
 function measureVisibleLeaves(nodeId) {
   const n = state.nodes[nodeId];
   if (!n) return 1;
@@ -148,7 +142,7 @@ function layoutDescendants(parent, DX, DY) {
   }
 }
 
-// ======= Zoom / Pan =======
+/* Zoom / Pan */
 function applyTransform() {
   const { k, tx, ty } = state.zoom;
   if (viewport)
@@ -177,14 +171,14 @@ function resetZoom() {
   applyTransform();
 }
 
-// Drag panning (desktop only; disabled on small screens so scroll works)
+/* Drag panning (desktop only) */
 let isPanning = false,
   panStart = { x: 0, y: 0 },
   panStartTx = 0,
   panStartTy = 0;
 
 svg.addEventListener("mousedown", (e) => {
-  if (!allowPan) return; // disable pan in scroll mode
+  if (!allowPan) return;
   if (e.button !== 0) return;
   if (e.target !== svg) return; // only background
   isPanning = true;
@@ -208,7 +202,7 @@ window.addEventListener("mouseup", () => {
   mapWrap.classList.remove("panning");
 });
 
-// Wheel zoom at cursor (desktop)
+/* Wheel zoom (works on both; mobile usually pinch-zooms the page, so harmless) */
 svg.addEventListener(
   "wheel",
   (e) => {
@@ -218,14 +212,13 @@ svg.addEventListener(
   { passive: false }
 );
 
-// ======= Global Expand / Collapse =======
+/* Global expand/collapse */
 function expandAll() {
   for (const n of Object.values(state.nodes)) n.collapsed = false;
 }
 function collapseAll() {
-  for (const n of Object.values(state.nodes)) {
+  for (const n of Object.values(state.nodes))
     if (n.children.length) n.collapsed = true;
-  }
   const root = state.nodes[state.rootId];
   if (root) root.collapsed = false;
   if (state.hubId && state.nodes[state.hubId])
@@ -233,9 +226,9 @@ function collapseAll() {
 }
 function isAllCollapsed() {
   return Object.values(state.nodes).every((n) => {
-    const isSpecial =
+    const special =
       n.id === state.rootId || (state.hubId && n.id === state.hubId);
-    if (isSpecial) return true;
+    if (special) return true;
     return n.children.length === 0 || n.collapsed === true;
   });
 }
@@ -246,7 +239,7 @@ function updateGlobalToggleLabel() {
   globalToggleBtn.title = globalToggleBtn.textContent;
 }
 
-// ======= Render =======
+/* Render */
 function clearViewport() {
   while (viewport.firstChild) viewport.removeChild(viewport.firstChild);
 }
@@ -257,7 +250,6 @@ function render() {
   const visible = getVisibleNodes();
   const visIds = new Set(visible.map((n) => n.id));
 
-  // Links
   for (const n of visible) {
     if (!n.parentId) continue;
     if (!visIds.has(n.parentId)) continue;
@@ -267,7 +259,6 @@ function render() {
     );
   }
 
-  // Nodes
   for (const n of visible) {
     const depthClass = `node--depth-${Math.min(n.depth, 8)}`;
     const g = s_el("g", {
@@ -290,13 +281,10 @@ function render() {
     text.textContent = `${marker}${n.label}`;
     g.appendChild(text);
 
-    // Click: select + per-node collapse/expand if it has children
     g.addEventListener("click", (e) => {
       e.stopPropagation();
       state.selectedId = n.id;
-      if (n.children.length) {
-        n.collapsed = !n.collapsed;
-      }
+      if (n.children.length) n.collapsed = !n.collapsed;
       render();
       updateDetails();
       updateGlobalToggleLabel();
@@ -308,19 +296,19 @@ function render() {
   applyTransform();
 }
 
-// ======= Details panel =======
+/* Details */
 function updateDetails() {
   const n = state.nodes[state.selectedId];
   if (!n) {
     editorTitle.textContent = "Node Details";
-    nodeNameEl.textContent = "–";
-    nodeTypeEl.textContent = "–";
-    nodeChildrenEl.textContent = "–";
-    nodeStateEl.textContent = "–";
-    nodeContentEl.textContent = "–";
+    nodeNameEl.textContent =
+      nodeTypeEl.textContent =
+      nodeChildrenEl.textContent =
+      nodeStateEl.textContent =
+      nodeContentEl.textContent =
+        "–";
     return;
   }
-
   editorTitle.textContent =
     n.type === "root"
       ? "Structure Details"
@@ -338,12 +326,12 @@ function updateDetails() {
   nodeContentEl.textContent = n.content || "—";
 }
 
-// ======= Fit (recompute layout) =======
+/* Fit (recompute layout) */
 function fitView() {
   render();
 }
 
-// ======= Load data =======
+/* Load data */
 async function loadData() {
   const qp = new URLSearchParams(location.search);
   const url = qp.get("data") || "data/latest.json";
@@ -355,7 +343,6 @@ async function loadData() {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
 
-    // normalize nodes map
     const rawMap = Array.isArray(data.nodes)
       ? Object.fromEntries(
           data.nodes.filter((n) => n && n.id).map((n) => [n.id, n])
@@ -389,13 +376,11 @@ async function loadData() {
         ? data.selectedId
         : state.rootId;
 
-    // build SVG group if needed
     if (!viewport) {
       viewport = s_el("g", { id: "viewport" });
       svg.appendChild(viewport);
     }
 
-    // reset zoom on load
     state.zoom = { k: 1, tx: 0, ty: 0 };
 
     render();
@@ -409,34 +394,20 @@ async function loadData() {
   }
 }
 
-// ======= Wire controls =======
+/* Wire controls */
 zoomInBtn.addEventListener("click", () => zoomBy(1.2));
 zoomOutBtn.addEventListener("click", () => zoomBy(1 / 1.2));
 zoomResetBtn.addEventListener("click", resetZoom);
 fitBtn.addEventListener("click", fitView);
 reloadBtn.addEventListener("click", loadData);
 
-// Global expand/collapse toggle near − / +
 globalToggleBtn.addEventListener("click", () => {
-  if (isAllCollapsed()) {
-    expandAll();
-  } else {
-    collapseAll();
-  }
+  if (isAllCollapsed()) expandAll();
+  else collapseAll();
   render();
   updateDetails();
   updateGlobalToggleLabel();
 });
 
-// Wheel zoom at cursor (desktop)
-svg.addEventListener(
-  "wheel",
-  (e) => {
-    e.preventDefault();
-    zoomAt(e.clientX, e.clientY, e.deltaY < 0 ? 1.15 : 1 / 1.15);
-  },
-  { passive: false }
-);
-
-// init
+/* Init */
 loadData();

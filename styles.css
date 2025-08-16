@@ -29,10 +29,12 @@
 * {
   box-sizing: border-box;
 }
+
 html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
@@ -47,11 +49,13 @@ body {
     fixed;
 }
 
+/* ===== App layout ===== */
 .app {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
   min-height: 100dvh;
 }
+
 .pane {
   padding: clamp(12px, 2vw, 20px);
   display: flex;
@@ -59,26 +63,51 @@ body {
   gap: 12px;
 }
 
+/* ===== LEFT: Map pane ===== */
 .pane--map {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   border-right: 1px solid rgba(255, 255, 255, 0.06);
 }
+
+/* Sticky header (sticks within .pane--map) */
+.map-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 21, 48, 0.92) 0%,
+    rgba(15, 21, 48, 0.55) 100%
+  );
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Right pane */
 .pane--editor {
   background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
-.map-header,
 .editor-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
 .app-title {
   margin: 0;
   font-size: clamp(16px, 2.2vw, 22px);
   font-weight: 600;
 }
 
+/* Header actions */
 .map-actions {
   display: flex;
   gap: 8px;
@@ -92,7 +121,7 @@ body {
   margin: 0 4px;
 }
 
-/* Map area */
+/* ===== Map area ===== */
 .map-wrap {
   flex: 1;
   background: rgba(255, 255, 255, 0.02);
@@ -100,10 +129,10 @@ body {
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   position: relative;
-  /* default desktop: no scrollbars (we pan) */
-  overflow: hidden;
+  overflow: hidden; /* desktop: no scrollbars; we drag-pan */
   min-height: 420px;
 }
+
 #map {
   width: 100%;
   height: 100%;
@@ -114,12 +143,7 @@ body {
   cursor: grabbing;
 }
 
-/* When we’re in mobile scroll mode (<=768px), show normal cursor */
-.map-wrap.scroll-mode #map {
-  cursor: default;
-}
-
-/* Help line */
+/* ===== Help line ===== */
 .help-line {
   margin: 0;
   margin-top: 6px;
@@ -128,7 +152,7 @@ body {
   display: none;
 }
 
-/* Buttons */
+/* ===== Buttons ===== */
 .btn {
   appearance: none;
   border: 1px solid #2b3b70;
@@ -150,18 +174,16 @@ body {
   display: none;
 }
 
-/* Details panel */
+/* ===== Details panel ===== */
 .details {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  font-weight: 14px;
 }
 .detail-row {
   display: flex;
   gap: 10px;
   align-items: baseline;
-  font-weight: 14px;
 }
 .detail-row-display {
   display: none;
@@ -191,7 +213,7 @@ body {
   width: 100%;
 }
 
-/* Tips box */
+/* ===== Tips box ===== */
 .tips {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.07);
@@ -209,13 +231,12 @@ body {
   line-height: 1.6;
 }
 
-/* SVG links */
+/* ===== SVG styling ===== */
 .link {
   stroke: var(--line);
   stroke-width: 2;
 }
 
-/* Nodes */
 .node circle {
   fill: var(--node);
   stroke: #0b122d;
@@ -227,6 +248,7 @@ body {
   filter: drop-shadow(0 0 6px rgba(96, 165, 250, 0.45));
   stroke-width: 2.5;
 }
+
 .node text {
   font-size: 12px;
   fill: var(--text);
@@ -236,12 +258,10 @@ body {
   pointer-events: none;
 }
 
-/* Root */
+/* Root + depth colors */
 .node--root circle {
   fill: var(--node-root);
 }
-
-/* Depth-based colors */
 .node--depth-1 circle {
   fill: var(--lvl1);
 }
@@ -276,7 +296,7 @@ body {
   stroke-dasharray: 3 3;
 }
 
-/* Desktop stacking to single column on narrower screens */
+/* ===== Stack panes on medium screens ===== */
 @media (max-width: 960px) {
   .app {
     grid-template-columns: 1fr;
@@ -290,21 +310,32 @@ body {
   }
 }
 
-/* SMALL SCREENS: enable both-direction scroll and make the SVG bigger than the viewport */
+/* ===== MOBILE (≤ 768px)
+   - Left pane becomes the scroll container (both axes)
+   - Header stays sticky
+   - SVG gets a minimum size so you can scroll around
+===== */
 @media (max-width: 768px) {
-  .map-wrap {
-    overflow: auto; /* show scrollbars */
-    -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+  .pane--map {
+    max-height: 100dvh;
+    overflow: auto; /* show scrollbars as needed */
+    -webkit-overflow-scrolling: touch; /* smooth iOS scrolling */
   }
-  /* Make the SVG larger than the viewport so it can scroll */
+
+  .map-wrap {
+    flex: unset; /* let its height be content-driven */
+    overflow: visible; /* allow SVG to extend; scrolling on pane */
+    min-height: unset;
+  }
+
   #map {
-    min-width: 1400px;
-    min-height: 900px;
-    cursor: auto; /* normal cursor on mobile */
+    min-width: 1400px; /* ensures horizontal scroll is possible */
+    min-height: 900px; /* ensures vertical scroll is possible */
+    cursor: default; /* no grab cursor – user scrolls */
   }
 }
 
-/* Even smaller phones can use a slightly smaller canvas */
+/* Really small phones */
 @media (max-width: 420px) {
   #map {
     min-width: 1200px;
@@ -312,5 +343,22 @@ body {
   }
 }
 
-/* Optional: if you wanted scrollbars on LARGE screens instead, flip to min-width:769px */
-/* @media (min-width: 769px) { .map-wrap { overflow: auto; } } */
+/* Tiny UI tweaks */
+@media (max-width: 600px) {
+  .app-title {
+    font-size: clamp(14px, 2.2vw, 20px);
+  }
+  .map-actions {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .map-actions .sep {
+    display: none;
+  }
+  .detail-label {
+    width: auto;
+  }
+  .detail-value {
+    font-size: 14px;
+  }
+}

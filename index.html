@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Docusarus Workflow Map (Viewer)</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <!-- Left: Map -->
+      <section class="pane pane--map">
+        <div class="map-header">
+          <h1 class="app-title">Docusarus Workflow Map</h1>
+          <div class="map-actions">
+            <!-- Zoom controls (left) -->
+            <button id="zoomOutBtn" class="btn btn--ghost" title="Zoom out">−</button>
+            <button id="zoomInBtn" class="btn btn--ghost" title="Zoom in">+</button>
+
+            <!-- Global Expand/Collapse next to − / + -->
+            <button id="globalToggleBtn" class="btn btn--ghost" title="Collapse or expand all">
+              Collapse All
+            </button>
+
+            <button id="zoomResetBtn" class="btn btn--ghost" title="Reset zoom">100%</button>
+            <span class="sep"></span>
+            <button id="fitBtn" class="btn btn--ghost btn-fit" title="Recenter layout">Fit</button>
+            <span class="sep"></span>
+            <button id="reloadBtn" class="btn btn--ghost" title="Reload data">Reload</button>
+          </div>
+        </div>
+
+        <div class="map-wrap" id="mapWrap">
+          <!-- Zoom & pan happen on this inner group -->
+          <svg id="map" aria-label="Node map" role="img"></svg>
+        </div>
+
+        <p class="help-line">
+          Click a node to <strong>collapse/expand that branch</strong> and view details.<br />
+          Use mouse wheel or the (− / + / 100%) buttons to zoom. Hold left mouse on the background to
+          drag/pan. Data source: <code>data/latest.json</code>
+        </p>
+      </section>
+
+      <!-- Right: Read-only details -->
+      <section class="pane pane--editor">
+        <header class="editor-header">
+          <h2 id="editorTitle">Node Details</h2>
+        </header>
+
+        <div class="details">
+          <div class="detail-row">
+            <div class="detail-label">Name</div>
+            <div id="nodeName" class="detail-value">–</div>
+          </div>
+          <div class="detail-row detail-row-display">
+            <div class="detail-label">Type</div>
+            <div id="nodeType" class="detail-value">–</div>
+          </div>
+          <div class="detail-row detail-row-display">
+            <div class="detail-label">Children</div>
+            <div id="nodeChildren" class="detail-value">–</div>
+          </div>
+          <div class="detail-row detail-row-display">
+            <div class="detail-label">State</div>
+            <div id="nodeState" class="detail-value">–</div>
+          </div>
+
+          <div class="detail-row detail-row--block">
+            <div class="detail-label">Details</div>
+            <div id="nodeContent" class="detail-code">–</div>
+          </div>
+        </div>
+
+        <details class="tips" open>
+          <summary>About this viewer</summary>
+          <ul>
+            <li>This is a read-only viewer. Editing is disabled.</li>
+            <li>To publish updates: export JSON from the local editor and replace <code>data/latest.json</code>.</li>
+            <li>You can optionally supply a different data file with <code>?data=path.json</code>.</li>
+          </ul>
+        </details>
+      </section>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

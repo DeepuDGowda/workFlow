@@ -1,0 +1,380 @@
+{
+  "v": 1,
+  "rootId": "root-qyqfbcg",
+  "hubId": "hub-m1edlwu",
+  "selectedId": "root-qyqfbcg",
+  "nodes": {
+    "root-qyqfbcg": {
+      "id": "root-qyqfbcg",
+      "label": "Project",
+      "content": "This is main project folder and you shall keep your Docusaurus project related files here.",
+      "type": "root",
+      "parentId": null,
+      "children": [
+        "hub-m1edlwu"
+      ],
+      "collapsed": true
+    },
+    "hub-m1edlwu": {
+      "id": "hub-m1edlwu",
+      "label": "Docusaurus",
+      "content": "This is a main folder where you can create folder structure.\n\nRun the following command:\n\n npx create-docusaurus@latest my-website classic\n\nThis will create docusaurus project folder.\n\n",
+      "type": "hub",
+      "parentId": "root-qyqfbcg",
+      "children": [
+        "child-wcqwph4"
+      ],
+      "collapsed": true
+    },
+    "child-wcqwph4": {
+      "id": "child-wcqwph4",
+      "label": "my-docs",
+      "content": "This folder is automatically generated and it consist of:\n    \n     \n• docusaurus\n• blog\n• build\n• docs\n• node_modules\n• src\n• static\n• gitignore.js\n• docusaurus.config.js\n• package.js\n• readme.md\n• sidebars.js\n\n\nNote:\n\n - Being a technical writer, you need not to work on all of these folders / files. therefore, you can  modify / add your content in required folders only.\n\n\n",
+      "type": "child",
+      "parentId": "hub-m1edlwu",
+      "children": [
+        "child-ujox3p3",
+        "child-lp9hbo2",
+        "child-kljahjm",
+        "child-77qvjfc",
+        "child-3qgiytj",
+        "child-jngyh32"
+      ],
+      "collapsed": true
+    },
+    "child-ujox3p3": {
+      "id": "child-ujox3p3",
+      "label": "docs",
+      "content": "You shall add your .md format files here.\n\nNote:\n    •\tYou have to create your own markdown.md files.\n    •\tFor better understanding i am considering you already had created 2 different markdown files.\n",
+      "type": "child",
+      "parentId": "child-wcqwph4",
+      "children": [
+        "child-v3yw225",
+        "child-su4dr4x"
+      ],
+      "collapsed": true
+    },
+    "child-lp9hbo2": {
+      "id": "child-lp9hbo2",
+      "label": "src",
+      "content": "This folder consist of following files:\n\n     •\tcomponents\n     •\tcss\n     •\tpages\n",
+      "type": "child",
+      "parentId": "child-wcqwph4",
+      "children": [
+        "child-p6axdme",
+        "child-yxlq4fr",
+        "child-3upyfnq"
+      ],
+      "collapsed": true
+    },
+    "child-kljahjm": {
+      "id": "child-kljahjm",
+      "label": "static",
+      "content": "This folder consist of following files / folder :\n\n      •\timg\n      •\tnojekyll\n",
+      "type": "child",
+      "parentId": "child-wcqwph4",
+      "children": [
+        "child-kignxwz",
+        "child-xml5b7k"
+      ],
+      "collapsed": true
+    },
+    "child-v3yw225": {
+      "id": "child-v3yw225",
+      "label": "markdown-file-1",
+      "content": "markdown-file-one.md\n\nThis is a pre-defined .md files with your content",
+      "type": "child",
+      "parentId": "child-ujox3p3",
+      "children": [],
+      "collapsed": false
+    },
+    "child-su4dr4x": {
+      "id": "child-su4dr4x",
+      "label": "markdown-file-2",
+      "content": "markdown-file-two.md\n\nThis is a pre-defined .md files with your content",
+      "type": "child",
+      "parentId": "child-ujox3p3",
+      "children": [],
+      "collapsed": false
+    },
+    "child-p6axdme": {
+      "id": "child-p6axdme",
+      "label": "components",
+      "content": "Reusable React components (e.g., custom cards, callouts).\n\nNo changes are required.",
+      "type": "child",
+      "parentId": "child-lp9hbo2",
+      "children": [],
+      "collapsed": false
+    },
+    "child-yxlq4fr": {
+      "id": "child-yxlq4fr",
+      "label": "css",
+      "content": "This folder will allow to make changes with respect to the design and style.",
+      "type": "child",
+      "parentId": "child-lp9hbo2",
+      "children": [
+        "child-ot7wsor"
+      ],
+      "collapsed": true
+    },
+    "child-3upyfnq": {
+      "id": "child-3upyfnq",
+      "label": "pages",
+      "content": "Route-based pages (src/pages/about.tsx → /about).",
+      "type": "child",
+      "parentId": "child-lp9hbo2",
+      "children": [
+        "child-xaqsun4",
+        "child-vg5njcg",
+        "child-obyu5f8"
+      ],
+      "collapsed": true
+    },
+    "child-xaqsun4": {
+      "id": "child-xaqsun4",
+      "label": "index.js",
+      "content": "Here you can make modification to your index page / landing page",
+      "type": "child",
+      "parentId": "child-3upyfnq",
+      "children": [],
+      "collapsed": false
+    },
+    "child-vg5njcg": {
+      "id": "child-vg5njcg",
+      "label": "index.module.css",
+      "content": "If required, make changes to the heroBanner",
+      "type": "child",
+      "parentId": "child-3upyfnq",
+      "children": [],
+      "collapsed": false
+    },
+    "child-obyu5f8": {
+      "id": "child-obyu5f8",
+      "label": "markdown-page.md",
+      "content": "Its a standalone page and don't required to add any content.",
+      "type": "child",
+      "parentId": "child-3upyfnq",
+      "children": [],
+      "collapsed": false
+    },
+    "child-ot7wsor": {
+      "id": "child-ot7wsor",
+      "label": "custom.css",
+      "content": "You can change the color of your root and theme.\n",
+      "type": "child",
+      "parentId": "child-yxlq4fr",
+      "children": [],
+      "collapsed": false
+    },
+    "child-kignxwz": {
+      "id": "child-kignxwz",
+      "label": "img",
+      "content": "This is a image folder and make sure what ever the images you would like to add into your document should be placed here.\n\nGood place for images, favicons, fonts.\n\nlater you can link images from here.\n\nExample:\n\n   ![sample-image](/img/api-flow.jpeg)\n\nNote:\n  • Don't create a separate folder like images / with different name and don't link images from here. \n  • The docusaurus has designed in such way that it will fetch the images from src -> img folder easily.\n",
+      "type": "child",
+      "parentId": "child-kljahjm",
+      "children": [],
+      "collapsed": false
+    },
+    "child-xml5b7k": {
+      "id": "child-xml5b7k",
+      "label": "nojekyll",
+      "content": "     •\tWithout .nojekyll, GitHub Pages may ignore those files, causing broken CSS, JS, or images. \n     •\tNeeded for Docusaurus, React, Vue, and other modern JS frameworks.\n     •\tEnsures GitHub Pages serves the files exactly as built.\n",
+      "type": "child",
+      "parentId": "child-kljahjm",
+      "children": [],
+      "collapsed": false
+    },
+    "child-77qvjfc": {
+      "id": "child-77qvjfc",
+      "label": "docusaurus.config.js",
+      "content": "If you would like to customize your doc website then you have to work on docusaurus.config.js file, and it consist of following files:\n\n     •\tSite Metadata\n     •\tProject Info (for GitHub Pages deploys)\n     •\tPresets\n     •\tTheme Config\n     •\tThemes & Plugins\n\nSummary:\n\n      •\tDefines identity: site name, URL, base path.\n      •\tControls features: docs, blog, pages, search, navbar, footer.\n      •\tHandles deploys: GitHub Pages/Netlify config (url, baseUrl, organizationName, projectName).\n      •\tExtends functionality: via plugins and themes.\n      •\tCustomizes design: CSS, theming, layout.\n\n",
+      "type": "child",
+      "parentId": "child-wcqwph4",
+      "children": [
+        "child-sozik3w",
+        "child-f6ee05b",
+        "child-yysloud",
+        "child-iz87plg",
+        "child-lnsdm7q"
+      ],
+      "collapsed": true
+    },
+    "child-sozik3w": {
+      "id": "child-sozik3w",
+      "label": "Site Metadata",
+      "content": "Defines basic details of your site.\n\nExample:\n\ntitle: 'My Docs Site',\ntagline: 'Documentation made easy',\nurl: 'https://yourname.github.io',   // Base site URL\nbaseUrl: '/my-docs/',                   // Sub-path (important for GitHub Pages)\nfavicon: 'img/favicon.ico',\n",
+      "type": "child",
+      "parentId": "child-77qvjfc",
+      "children": [],
+      "collapsed": false
+    },
+    "child-f6ee05b": {
+      "id": "child-f6ee05b",
+      "label": "Project Info (for GitHub Pages deploys)",
+      "content": "Helps with correct asset paths.\n\nExample:\n\norganizationName: 'yourName',  // GitHub org/user\nprojectName: 'my-docs',           // Repo name\n",
+      "type": "child",
+      "parentId": "child-77qvjfc",
+      "children": [],
+      "collapsed": false
+    },
+    "child-yysloud": {
+      "id": "child-yysloud",
+      "label": "Presets",
+      "content": "Bundles of plugins (classic preset includes docs, blog, theme).\n\n\nExample: \n\npresets: [\n  [\n    'classic',\n    {\n      docs: {\n        sidebarPath: require.resolve('./sidebars.js'),\n      },\n      blog: {\n        showReadingTime: true,\n      },\n      theme: {\n        customCss: require.resolve('./src/css/custom.css'),\n      },\n    },\n  ],\n],\n",
+      "type": "child",
+      "parentId": "child-77qvjfc",
+      "children": [],
+      "collapsed": false
+    },
+    "child-iz87plg": {
+      "id": "child-iz87plg",
+      "label": "Theme Config",
+      "content": "Controls navbar, footer, color mode, search, etc.\n\nExample:\n\nthemeConfig: {\n  navbar: {\n    title: 'My Docs',\n    logo: { alt: 'Logo', src: 'img/logo.svg' },\n    items: [\n      { type: 'docSidebar', sidebarId: 'docs', position: 'left', label: 'Docs' },\n      { href: 'https://github.com/DeepuDGowda/my-docs', label: 'GitHub', position: 'right' },\n    ],\n  },\n  footer: {\n    style: 'dark',\n    links: [\n      { title: 'Docs', items: [{ label: 'Tutorial', to: '/docs/intro' }] },\n    ],\n  },\n  prism: { theme: require('prism-react-renderer/themes/github') },\n},\n",
+      "type": "child",
+      "parentId": "child-77qvjfc",
+      "children": [],
+      "collapsed": false
+    },
+    "child-lnsdm7q": {
+      "id": "child-lnsdm7q",
+      "label": "Themes & Plugins",
+      "content": "Extend features like search, PWA, sitemap, Google Analytics.\n\nExample:\n\nplugins: [\n  '@docusaurus/plugin-sitemap',\n  [\n    '@docusaurus/plugin-pwa',\n    { offlineModeActivationStrategies: ['appInstalled', 'standalone', 'queryString'] }\n  ]\n],\nthemes: ['@docusaurus/theme-mermaid'], // enables Mermaid diagrams\n",
+      "type": "child",
+      "parentId": "child-77qvjfc",
+      "children": [],
+      "collapsed": false
+    },
+    "child-3qgiytj": {
+      "id": "child-3qgiytj",
+      "label": "Sidebars.js",
+      "content": "     •\tA sidebar is the navigation menu that usually appears on the left side of your docs pages.\n     •\tIt helps users navigate between different sections of your documentation in a structured way. Controlled by the sidebars.js (or .ts) file in the project root\n\nSummary:\n\n     •\tOrganizes documentation into categories and subcategories.\n     •\tDefines order of docs \n     •\tAllows collapsible sections for grouping.\n     •\tSupports autogenerated sidebars based on folder structure.\n     •\tLinks docs with IDs \n\n",
+      "type": "child",
+      "parentId": "child-wcqwph4",
+      "children": [
+        "child-5tf1na1"
+      ],
+      "collapsed": true
+    },
+    "child-5tf1na1": {
+      "id": "child-5tf1na1",
+      "label": "sidebars.js",
+      "content": "Example:\n\n\nexport default {\n  docs: [\n    {\n      type: 'category',\n      label: 'Getting Started',\n      collapsed: false,\n      items: [\n        'intro',              // maps to docs/intro.md\n        'getting-started',    // maps to docs/getting-started.md\n      ],\n    },\n    {\n      type: 'category',\n      label: 'Guides',\n      items: [\n        'guides/installation',   // maps to docs/guides/installation.md\n        'guides/configuration',  // maps to docs/guides/configuration.md\n      ],\n    },\n    {\n      type: 'doc',\n      id: 'faq',   // maps to docs/faq.md\n    },\n  ],\n};\n",
+      "type": "child",
+      "parentId": "child-3qgiytj",
+      "children": [],
+      "collapsed": false
+    },
+    "child-jngyh32": {
+      "id": "child-jngyh32",
+      "label": "Deployment",
+      "content": "This section will help you to understand how you can deploy your Docusaurus file into git environment.",
+      "type": "child",
+      "parentId": "child-wcqwph4",
+      "children": [
+        "child-v3uht8j",
+        "child-o0973qk"
+      ],
+      "collapsed": true
+    },
+    "child-v3uht8j": {
+      "id": "child-v3uht8j",
+      "label": "GitHub / GitLab",
+      "content": "Here you shall you the following commands to push you code into GitHub / GitLab:\n\n      •\tgit init:  Start tracking repo locally\n      •\tgit branch -M main:  Rename default branch to `main’\n      •\tgit remote add origin <url>: Link local repo → GitHub / GitLab repo\n      •\tgit add .: Stage all changes for commit\n      •\tgit commit -m \"msg\"`:  Save a snapshot with message\n      •\tgit push -u origin main’:  Upload local commits to GitHub, set upstream\n\n\t\nNote:\n   •\tCommands are the same (init → remote add → add → commit → push).\n   •\tYou mainly swap the remote URL (github.com vs gitlab.com) and use the right token.\n   •\tAfter push, automation differs:\n         o  GitHub → GitHub Actions & GitHub Pages\n         o  GitLab → GitLab CI & GitLab Pages (serve from public/ artifact)\t\n",
+      "type": "child",
+      "parentId": "child-jngyh32",
+      "children": [
+        "child-jzpytyg",
+        "child-e929lyo",
+        "child-54nrvv3",
+        "child-x3qabh9",
+        "child-xixu8t0",
+        "child-oowb25m"
+      ],
+      "collapsed": true
+    },
+    "child-o0973qk": {
+      "id": "child-o0973qk",
+      "label": "Git page setting",
+      "content": "Details for child-child-2",
+      "type": "child",
+      "parentId": "child-jngyh32",
+      "children": [
+        "child-suyekwz",
+        "child-6jetkfg"
+      ],
+      "collapsed": true
+    },
+    "child-jzpytyg": {
+      "id": "child-jzpytyg",
+      "label": "git init",
+      "content": "     •\tCreates a new empty Git repository in your project folder.\n     •\tAdds a hidden .git/ directory → where Git stores commits, branches, and metadata.\n     •\tWithout this, Git doesn’t track files.\n\nExample:\n\ninput:\n    git init\n\nOutput:\n    Initialized empty Git repository in C:/Users/Deepu/my-docs/.git/\n\n",
+      "type": "child",
+      "parentId": "child-v3uht8j",
+      "children": [],
+      "collapsed": false
+    },
+    "child-e929lyo": {
+      "id": "child-e929lyo",
+      "label": "git branch -M main",
+      "content": "     •\tRenames the current branch to main.\n     •\tBy default, Git used to create master. Many teams now use main as default.\n     •\tThe -M forces the rename, even if a main branch already exists.\n\n",
+      "type": "child",
+      "parentId": "child-v3uht8j",
+      "children": [],
+      "collapsed": false
+    },
+    "child-54nrvv3": {
+      "id": "child-54nrvv3",
+      "label": "git remote add origin",
+      "content": "\n    •\tConnects your local repo to a remote repo (on GitHub).\n    •\torigin = the alias (shortcut) for that remote URL.\n    •\tAfter this, you can git push origin main to send code, or git pull origin main to fetch.\n\n\n\nbash:\n\n  git remote add origin https://github.com/userName/my-docs.git\n\nCheck remotes:\n  \n  git remote -v\n",
+      "type": "child",
+      "parentId": "child-v3uht8j",
+      "children": [],
+      "collapsed": false
+    },
+    "child-x3qabh9": {
+      "id": "child-x3qabh9",
+      "label": "git add .",
+      "content": "    •\tStages all new/changed files in the current folder for the next commit.\n    •\tThe dot (.) means “everything in this directory”.\n    •\tFiles are now in the staging area, waiting to be committed.\n\nbash:\n\n  git add .\n\nTo stage only one file example:\n\n  git add docs/intro.md\n",
+      "type": "child",
+      "parentId": "child-v3uht8j",
+      "children": [],
+      "collapsed": false
+    },
+    "child-xixu8t0": {
+      "id": "child-xixu8t0",
+      "label": "git commit -m",
+      "content": "     •\tSaves a snapshot of the staged changes to Git history.\n     •\tm allows you to add a commit message inline.\n     •\tThis creates a permanent checkpoint in your repo.\n\nbash\n\n  git commit -m \"init docusaurus\"\n \nOutput example:\n\n  [main (root-commit) abc1234] init docusaurus\n  12 files changed, 300 insertions(+)\n  create mode 100644 docusaurus.config.js\n",
+      "type": "child",
+      "parentId": "child-v3uht8j",
+      "children": [],
+      "collapsed": false
+    },
+    "child-oowb25m": {
+      "id": "child-oowb25m",
+      "label": "git push -u origin main",
+      "content": "     •\tPushes your local main branch to the remote origin repo (GitHub).\n     •\t-u (or --set-upstream) links your local main with origin/main.\n     •\tAfter this, you can just run git push or git pull without specifying branch/remote.\n\nbash\n   \n   git push -u origin main\n\nOutput example:\n  \n   Enumerating objects: 50, done.\n   Counting objects: 100% (50/50), done.\n   Writing objects: 100% (50/50), 25.32 KiB | 3.00 MiB/s, done.\n   Branch 'main' set up to track remote branch 'main' from 'origin'.\n\n   \n",
+      "type": "child",
+      "parentId": "child-v3uht8j",
+      "children": [],
+      "collapsed": false
+    },
+    "child-suyekwz": {
+      "id": "child-suyekwz",
+      "label": "GitHub page setting",
+      "content": "Settings preferences: \n\n    •\tSettings → pages → select the master / main → select the root folder → save\n\n    •\tActions → click on your page deployment → click on deploy link. (this will launch your code in git server / webpage).\n",
+      "type": "child",
+      "parentId": "child-o0973qk",
+      "children": [],
+      "collapsed": false
+    },
+    "child-6jetkfg": {
+      "id": "child-6jetkfg",
+      "label": "GitLab page setting",
+      "content": "     •\tGo to Settings → Pages → New Domain.\n     •\tAdd your custom domain (e.g., docs.example.com).\n     •\tGitLab will give you the DNS records (CNAME, TXT for verification).\n     •\tOnce DNS propagates, enable “Enforce HTTPS”.\n",
+      "type": "child",
+      "parentId": "child-o0973qk",
+      "children": [],
+      "collapsed": false
+    }
+  }
+}

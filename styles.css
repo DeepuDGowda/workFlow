@@ -333,8 +333,8 @@ body {
     min-height: 1200px; /* ensures vertical scroll is possible */
     cursor: default; /* no grab cursor – user scrolls */
     cursor: -moz-grabbing;
-    min-width: fit-content;
-    min-height: fit-content; /* allow SVG to extend */  
+    max-width: fit-content;
+    max-height: fit-content; /* allow SVG to extend */  
   }
 }
 

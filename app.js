@@ -314,7 +314,7 @@ function updateDetails() {
       ? "Structure Details"
       : n.type === "hub"
       ? "Hub Node"
-      : "Child Node";
+      : "Stage details";
   nodeNameEl.textContent = n.label || "—";
   nodeTypeEl.textContent = `${n.type} (depth ${n.depth ?? 0})`;
   nodeChildrenEl.textContent = n.children.length;

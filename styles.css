@@ -324,14 +324,15 @@ body {
 
   .map-wrap {
     flex: unset; /* let its height be content-driven */
-    overflow: visible; /* allow SVG to extend; scrolling on pane */
+    overflow: scroll; /* allow SVG to extend; scrolling on pane */
     min-height: unset;
   }
 
   #map {
-    min-width: 1400px; /* ensures horizontal scroll is possible */
-    min-height: 900px; /* ensures vertical scroll is possible */
+    min-width: 900px; /* ensures horizontal scroll is possible */
+    min-height: 1000px; /* ensures vertical scroll is possible */
     cursor: default; /* no grab cursor – user scrolls */
+    cursor: -moz-grabbing;
   }
 }
 

@@ -329,8 +329,8 @@ body {
   }
 
   #map {
-    min-width: 1400px; /* ensures horizontal scroll is possible */
-    min-height: 1200px; /* ensures vertical scroll is possible */
+    /* min-width: 1400px;
+    min-height: 1200px; */
     cursor: default; /* no grab cursor – user scrolls */
     cursor: -moz-grabbing;
     max-width: fit-content;
@@ -341,8 +341,10 @@ body {
 /* Really small phones */
 @media (max-width: 420px) {
   #map {
-    min-width: 1200px;
-    min-height: 800px;
+    /* min-width: 1200px;
+    min-height: 800px; */
+    max-width: fit-content;
+    max-height: fit-content;
   }
 }
 

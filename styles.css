@@ -7,7 +7,6 @@
   --accent: #60a5fa;
   --accent-2: #22d3ee;
   --line: #21305b;
-
   --node: #7dd3fc;
   --node-root: #34d399;
 
@@ -29,12 +28,10 @@
 * {
   box-sizing: border-box;
 }
-
 html,
 body {
   height: 100%;
 }
-
 body {
   margin: 0;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
@@ -47,15 +44,16 @@ body {
       #070b18 100%
     )
     fixed;
+  overflow-x: hidden; /* prevent page horizontal wobble */
+  overscroll-behavior-x: contain; /* keep horizontal scroll localized */
 }
 
-/* ===== App layout ===== */
+/* Layout */
 .app {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
   min-height: 100dvh;
 }
-
 .pane {
   padding: clamp(12px, 2vw, 20px);
   display: flex;
@@ -63,15 +61,16 @@ body {
   gap: 12px;
 }
 
-/* ===== LEFT: Map pane ===== */
+/* LEFT: Map pane */
 .pane--map {
   position: relative;
   display: flex;
   flex-direction: column;
   border-right: 1px solid rgba(255, 255, 255, 0.06);
+  overscroll-behavior: contain;
 }
 
-/* Sticky header (sticks within .pane--map) */
+/* Sticky header inside left pane */
 .map-header {
   position: sticky;
   top: 0;
@@ -100,7 +99,6 @@ body {
   align-items: center;
   justify-content: space-between;
 }
-
 .app-title {
   margin: 0;
   font-size: clamp(16px, 2.2vw, 22px);
@@ -121,7 +119,7 @@ body {
   margin: 0 4px;
 }
 
-/* ===== Map area ===== */
+/* Map area */
 .map-wrap {
   flex: 1;
   background: rgba(255, 255, 255, 0.02);
@@ -129,24 +127,21 @@ body {
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   position: relative;
-  overflow: hidden; /* desktop: no scrollbars; we drag-pan */
+  overflow: hidden; /* drag-pan everywhere */
   min-height: 420px;
 }
-
 #map {
-  /* min-width: 9500px;
-  min-height: 950px; */
   width: 100%;
   height: 100%;
   display: block;
   cursor: grab;
-  /* overflow: scroll; */
+  touch-action: none; /* enable our custom pan + pinch handlers */
 }
 .map-wrap.panning #map {
   cursor: grabbing;
 }
 
-/* ===== Help line ===== */
+/* Help line */
 .help-line {
   margin: 0;
   margin-top: 6px;
@@ -155,7 +150,7 @@ body {
   display: none;
 }
 
-/* ===== Buttons ===== */
+/* Buttons */
 .btn {
   appearance: none;
   border: 1px solid #2b3b70;
@@ -177,7 +172,7 @@ body {
   display: none;
 }
 
-/* ===== Details panel ===== */
+/* Details panel */
 .details {
   display: flex;
   flex-direction: column;
@@ -194,7 +189,7 @@ body {
   align-items: baseline;
 }
 .detail-label {
-  width: 110px;
+  width: 140px;
   color: var(--muted);
   font-size: 16px;
   font-weight: bold;
@@ -215,8 +210,18 @@ body {
   color: var(--text);
   width: 100%;
 }
+.dim {
+  opacity: 0.75;
+}
 
-/* ===== Tips box ===== */
+/* Divider */
+.divider {
+  margin: 4px 0 6px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Tips */
 .tips {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.07);
@@ -234,24 +239,72 @@ body {
   line-height: 1.6;
 }
 
-/* ===== SVG styling ===== */
-.link {
+/* ----------------- SVG styling ----------------- */
+
+/* Parent→child links (neutral base) */
+.link-tree {
   stroke: var(--line);
+  stroke-linecap: round;
   stroke-width: 2;
+  transition: stroke 0.18s ease, stroke-width 0.18s ease, filter 0.18s ease;
+  pointer-events: none; /* real hover handled by the fat hit line */
+}
+.link-tree.hovered {
+  stroke-width: 3.2;
+  filter: drop-shadow(0 0 7px currentColor);
 }
 
-.node circle {
-  fill: var(--node);
-  stroke: #0b122d;
-  stroke-width: 2;
-  cursor: pointer;
-  transition: filter 0.12s ease, stroke-width 0.12s ease;
+/* Invisible fat hit-line to capture hover near the tree link */
+.link-tree-hit {
+  stroke: rgba(0, 0, 0, 0);
+  stroke-width: 14;
+  fill: none;
+  pointer-events: stroke;
 }
-.node circle:hover {
-  filter: drop-shadow(0 0 6px rgba(96, 165, 250, 0.45));
+
+/* Backlinks (behind tree + nodes) */
+.link--back {
   stroke-width: 2.5;
+  stroke-linecap: round;
+  fill: none;
+  pointer-events: visibleStroke;
+  transition: stroke 0.2s, stroke-width 0.2s, filter 0.2s;
+}
+.link--back.hovered {
+  stroke-width: 4;
+  filter: drop-shadow(0 0 6px currentColor);
 }
 
+/* invisible fat hit-path for backlinks */
+.link--back-hit {
+  fill: none;
+  stroke: rgba(0, 0, 0, 0);
+  stroke-width: 14;
+  pointer-events: stroke;
+}
+
+/* Optional label badge on backlink curve peak */
+.backlabel text {
+  font-size: 11px;
+  fill: #0b122d;
+  pointer-events: none;
+}
+.backlabel rect {
+  fill: #e8eeff;
+  opacity: 0.95;
+  rx: 4;
+  ry: 4;
+  stroke: rgba(0, 0, 0, 0.25);
+}
+
+/* Nodes (shapes) */
+.node-shape {
+  cursor: pointer;
+  transition: filter 0.14s ease, stroke-width 0.14s ease, transform 0.08s ease;
+}
+.node-shape:hover {
+  filter: drop-shadow(0 0 7px rgba(96, 165, 250, 0.55));
+}
 .node text {
   font-size: 12px;
   fill: var(--text);
@@ -261,45 +314,62 @@ body {
   pointer-events: none;
 }
 
-/* Root + depth colors */
-.node--root circle {
+/* Depth colors + root (fallback if no custom fill provided) */
+.node--root .node-shape {
   fill: var(--node-root);
 }
-.node--depth-1 circle {
+.node--depth-1 .node-shape {
   fill: var(--lvl1);
 }
-.node--depth-2 circle {
+.node--depth-2 .node-shape {
   fill: var(--lvl2);
 }
-.node--depth-3 circle {
+.node--depth-3 .node-shape {
   fill: var(--lvl3);
 }
-.node--depth-4 circle {
+.node--depth-4 .node-shape {
   fill: var(--lvl4);
 }
-.node--depth-5 circle {
+.node--depth-5 .node-shape {
   fill: var(--lvl5);
 }
-.node--depth-6 circle {
+.node--depth-6 .node-shape {
   fill: var(--lvl6);
 }
-.node--depth-7 circle {
+.node--depth-7 .node-shape {
   fill: var(--lvl7);
 }
-.node--depth-8 circle {
+.node--depth-8 .node-shape {
   fill: var(--lvl8);
 }
 
-.node--selected circle {
-  stroke: var(--focus);
-  stroke-width: 3;
-  filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.35));
+.node--selected .node-shape {
+  stroke: var(--focus) !important;
+  stroke-width: 3 !important;
+  filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.55));
 }
-.node--collapsed circle {
+.node--collapsed .node-shape {
   stroke-dasharray: 3 3;
 }
 
-/* ===== Stack panes on medium screens ===== */
+/* Tooltip */
+.tooltip {
+  position: absolute;
+  background: #1f2937;
+  color: #e5e7eb;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  display: none;
+  pointer-events: none;
+  white-space: pre-wrap;
+  max-width: min(320px, 70vw);
+  z-index: 999;
+}
+
+/* Stack panes on medium */
 @media (max-width: 960px) {
   .app {
     grid-template-columns: 1fr;
@@ -313,45 +383,38 @@ body {
   }
 }
 
-/* ===== MOBILE (≤ 768px)
-   - Left pane becomes the scroll container (both axes)
-   - Header stays sticky
-   - SVG gets a minimum size so you can scroll around
-===== */
+/* MOBILE (≤768px): keep drag-pan + pinch zoom (no page wobble) */
 @media (max-width: 768px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
   .pane--map {
     max-height: 100dvh;
-    overflow: auto; /* show scrollbars as needed */
-    -webkit-overflow-scrolling: touch; /* smooth iOS scrolling */
+    overflow: hidden; /* we pan the SVG instead of scrolling the container */
+    -webkit-overflow-scrolling: touch;
   }
-
   .map-wrap {
-    flex: unset; /* let its height be content-driven */
-    overflow: scroll; /* allow SVG to extend; scrolling on pane */
+    overflow: hidden;
     min-height: unset;
   }
-
   #map {
-    min-width: 9500px;
-    min-height: 950px;
-    cursor: default; /* no grab cursor – user scrolls */
-    cursor: -moz-grabbing;
-    min-width: fit-content;
-    min-height: fit-content; /* allow SVG to extend */  
+    min-width: 1200px;
+    min-height: 800px;
+    cursor: grab; /* keep the hand cursor on responsive too */
+    touch-action: none; /* pan + pinch handled by JS */
   }
 }
 
-/* Really small phones */
+/* Tiny phones */
 @media (max-width: 420px) {
   #map {
-    min-width: 900px;
-    min-height: 800px;
-    /* min-width: fit-content;
-    min-height: fit-content; */
+    min-width: 1000px;
+    min-height: 700px;
   }
 }
 
-/* Tiny UI tweaks */
+/* Small UI tweaks */
 @media (max-width: 600px) {
   .app-title {
     font-size: clamp(14px, 2.2vw, 20px);

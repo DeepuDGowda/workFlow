@@ -22,6 +22,7 @@
             <button id="zoomInBtn" class="btn btn--ghost" title="Zoom in">
               +
             </button>
+
             <button
               id="globalToggleBtn"
               class="btn btn--ghost"
@@ -29,10 +30,12 @@
             >
               Collapse All
             </button>
+
             <button id="zoomResetBtn" class="btn btn--ghost" title="Reset zoom">
-              Fit
+              100%
             </button>
             <span class="sep"></span>
+
             <button
               id="fitBtn"
               class="btn btn--ghost btn-fit"
@@ -54,9 +57,8 @@
         <p class="help-line">
           Click a node to <strong>collapse/expand that branch</strong> and view
           details.<br />
-          Use mouse wheel or the (− / + / 100%) buttons to zoom. Hold left mouse
-          on the background to drag/pan. Data source:
-          <code>data/latest.json</code>
+          Use mouse wheel or the (− / + / 100%) buttons to zoom. Drag to pan.
+          Data source: <code>data/latest.json</code>
         </p>
       </section>
 
@@ -67,6 +69,7 @@
         </header>
 
         <div class="details">
+          <!-- Node info -->
           <div class="detail-row">
             <div class="detail-label">Name</div>
             <div id="nodeName" class="detail-value">–</div>
@@ -88,6 +91,17 @@
             <div class="detail-label">Details</div>
             <div id="nodeContent" class="detail-code">–</div>
           </div>
+
+          <!-- Backlink info (populates while hovering a backlink) -->
+          <div class="divider"></div>
+          <div class="detail-row">
+            <div class="detail-label">Backlink Name</div>
+            <div id="backName" class="detail-value dim">—</div>
+          </div>
+          <div class="detail-row detail-row--block">
+            <div class="detail-label">Backlink Content</div>
+            <div id="backContent" class="detail-code dim">—</div>
+          </div>
         </div>
 
         <details class="tips" open>
@@ -102,10 +116,19 @@
               You can optionally supply a different data file with
               <code>?data=path.json</code>.
             </li>
+            <li>Hover a backlink to see its name/content here.</li>
           </ul>
         </details>
       </section>
     </div>
+
+    <!-- Floating tooltip (nodes, backlinks, and parent→child lines) -->
+    <div
+      id="backlinkTooltip"
+      class="tooltip"
+      role="tooltip"
+      aria-hidden="true"
+    ></div>
 
     <script src="app.js"></script>
   </body>

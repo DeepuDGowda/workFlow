@@ -2,12 +2,12 @@
   "v": 9,
   "rootId": "root-qklxth2",
   "hubId": "hub-milxj6k",
-  "selectedId": "child-yvfe7jd",
+  "selectedId": "child-m8k7wom",
   "nodes": {
     "root-qklxth2": {
       "id": "root-qklxth2",
-      "label": "Orginazation",
-      "content": "Fast faced organization.",
+      "label": "Project",
+      "content": "A project refers to the specific product, system, or feature that the technical writer is responsible for documenting.",
       "type": "root",
       "parentId": null,
       "children": [
@@ -23,7 +23,7 @@
     "hub-milxj6k": {
       "id": "hub-milxj6k",
       "label": "Technical Writer",
-      "content": "The key resource to create and maintain the documents.",
+      "content": "The technical writer will act as bridge between the people who build a product and the people who use it.",
       "type": "hub",
       "parentId": "root-qklxth2",
       "children": [
@@ -51,7 +51,7 @@
         "child-0twqy11",
         "child-61o253s"
       ],
-      "collapsed": false,
+      "collapsed": true,
       "shape": "circle",
       "w": 15,
       "h": 15,
@@ -133,7 +133,7 @@
     },
     "child-ynla6xd": {
       "id": "child-ynla6xd",
-      "label": "5. Strem-line doc",
+      "label": "5. Doc stream-line",
       "content": "     •\tWrite procedure / step by step instruction in each section defined in outline section.\n     •\tAdd images from figma / other sources\n     •\tCross verifies the procedure with actual flow and make sure the document follows the same.\n     •\tKeep language simple & task-oriented\n",
       "type": "child",
       "parentId": "child-m8k7wom",
@@ -143,7 +143,7 @@
         "child-oibue02",
         "child-7wnzzc3"
       ],
-      "collapsed": false,
+      "collapsed": true,
       "shape": "circle",
       "w": 15,
       "h": 15,
